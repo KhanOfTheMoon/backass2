@@ -53,12 +53,13 @@ Response (example format):
 
 ## Key Design Decisions
 
-Server-side only:
-- OpenWeather API key is stored in .env and used only on the server.
-- The client does not call OpenWeather or Wikipedia directly.
-- The client calls only /api/weather, so the API key is not exposed in the browser.
+### Server-side only
+- OpenWeather API key is stored in `.env` and used only on the server.
+- The frontend does not call OpenWeather/Wikipedia/Currency APIs directly.
+- The frontend calls only `/api/weather`, so API keys are not exposed in the browser.
 
-Assignment JSON fields
+### Assignment JSON fields
+The server returns the required weather fields:
 - temperature
 - description
 - coordinates
@@ -67,6 +68,16 @@ Assignment JSON fields
 - country_code
 - rain_3h
 
-Extra API (Fact API)
-- Wikipedia REST API is used to provide a short fact/summary about the selected city.
-- Runs strictly on the server to meet the “Server-Side Only” requirement.
+### Integration of two additional server-side APIs
+
+1) Fact API (Wikipedia REST)
+- The server requests a short city summary using Wikipedia REST API.
+- The fact is included in the JSON response as `fact` and displayed on the website.
+
+2) Currency APIs (RestCountries + Exchange Rates)
+- The server detects the country using OpenWeather `country_code`.
+- RestCountries is used to map the country code to the local currency (example: `KZ -> KZT`).
+- Exchange Rates API is used to get rates based on USD and compute:
+  - `usd_to_currency` (1 USD -> local currency)
+  - `currency_to_usd` (1 local currency -> USD)
+- The currency block is included in the JSON response as `currency` and displayed on the website.
