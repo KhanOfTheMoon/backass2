@@ -2,6 +2,26 @@ Student: Aibek Nurtay
 Group: SE-2433
 Subject: Web Tech 2
 
+## Setup Instructions
+
+1) Install dependencies:
+~~~
+npm install
+~~~
+
+2) Create a file named `.env` in the project root and add your OpenWeather key:
+~~~
+OPENWEATHER_API_KEY=YOUR_KEY_HERE
+~~~
+
+3) Start the server:
+~~~
+node server.js
+~~~
+
+4) Open the website:
+- http://localhost:3000
+
 ## Screenshot of website:
 <img width="1136" height="692" alt="image" src="https://github.com/user-attachments/assets/54d496ab-cc40-46bf-b778-e2984caa85d4" />
 <img width="1909" height="1037" alt="image" src="https://github.com/user-attachments/assets/d197baf2-84ee-47db-b5ed-c14059552ca8" />
