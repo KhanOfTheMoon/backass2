@@ -29,6 +29,7 @@ node server.js
 
 Example:
 - GET http://localhost:3000/api/weather?city=Astana
+<img width="2560" height="485" alt="image" src="https://github.com/user-attachments/assets/20312281-22b6-4a13-aaee-073c6945eb70" />
 
 Response (example format):
 
