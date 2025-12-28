@@ -20,13 +20,12 @@ h1{margin:0 0 12px}
   gap:10px;
 }
 
-/* rounded input */
 input{
   flex:1;
   padding:11px 12px;
   font-size:16px;
   border:1px solid #d1d5db;
-  border-radius:14px;          /* <-- скругление */
+  border-radius:14px;         
   outline:none;
 }
 input:focus{
@@ -34,31 +33,29 @@ input:focus{
   box-shadow:0 0 0 3px rgba(59,130,246,.18);
 }
 
-/* rounded button */
+
 button{
   padding:11px 14px;
   font-size:16px;
   cursor:pointer;
   border:none;
-  border-radius:14px;          /* <-- скругление */
+  border-radius:14px;
   background:#3b82f6;
   color:#fff;
 }
 button:hover{background:#2563eb}
 
-/* output: stays inside, wraps text */
+
 pre{
   margin-top:12px;
   padding:12px;
   background:#111827;
   color:#e5e7eb;
   border-radius:14px;
-
-  /* главное: чтобы текст НЕ выходил за пределы */
   white-space:pre-wrap;        /* перенос строк */
   overflow-wrap:anywhere;      /* перенос длинных слов/ссылок */
   word-break:break-word;       /* запасной вариант */
-  overflow:auto;               /* если всё равно слишком много — скролл */
+  overflow:auto;        
   max-width:100%;
 }
 

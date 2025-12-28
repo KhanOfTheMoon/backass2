@@ -7,38 +7,24 @@ app.use(express.static('public'));
 
 const KEY = process.env.OPENWEATHER_API_KEY;
 
-// Определяем язык википедии по вводу
+// если кириллица ru, иначе en
 function wikiLangFromText(text) {
   return /[А-Яа-яЁё]/.test(text) ? 'ru' : 'en';
 }
 
-// Название страны по коду без дополнительных API
-function countryNameFromCode(code, lang = 'en') {
-  try {
-    const dn = new Intl.DisplayNames([lang], { type: 'region' });
-    return dn.of(code) || code;
-  } catch {
-    return code;
-  }
-}
-
-// Получаем summary из Wikipedia REST API: /page/summary/{title}
-async function fetchWikiFact(title) {
-  const lang = wikiLangFromText(title);
+async function fetchWikiFact(city) {
+  const lang = wikiLangFromText(city);
   const base = lang === 'ru' ? 'https://ru.wikipedia.org' : 'https://en.wikipedia.org';
-  const url = `${base}/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+  const url = `${base}/api/rest_v1/page/summary/${encodeURIComponent(city)}`;
 
   const { data } = await axios.get(url, {
     timeout: 8000,
-    headers: {
-      // Wikimedia просит указывать User-Agent (уникальный/понятный)
-      'User-Agent': 'weather-simple-3000/1.0 (student-project)'
-    }
+    headers: { 'User-Agent': 'weather-app/1.0 (student-project)' }
   });
 
   return {
     source: 'wikipedia',
-    title: data.title || title,
+    title: data.title || city,
     fact: data.extract || '',
     url: data?.content_urls?.desktop?.page || ''
   };
@@ -60,7 +46,6 @@ app.get('/api/weather', async (req, res) => {
 
     const { data } = await axios.get(owUrl, { timeout: 8000 });
 
-    // Основной JSON по требованиям
     const weather = {
       temperature: data.main.temp,
       description: data.weather?.[0]?.description || '',
@@ -71,18 +56,11 @@ app.get('/api/weather', async (req, res) => {
       rain_3h: typeof data?.rain?.['3h'] === 'number' ? data.rain['3h'] : 0
     };
 
-    // Fact API
     let factObj = null;
     try {
       factObj = await fetchWikiFact(city);
     } catch {
-      try {
-        const lang = wikiLangFromText(city);
-        const countryName = countryNameFromCode(weather.country_code, lang);
-        factObj = await fetchWikiFact(countryName);
-      } catch {
-        factObj = null;
-      }
+      factObj = null;
     }
 
     res.json({ ...weather, fact: factObj });
