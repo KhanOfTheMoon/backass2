@@ -8,8 +8,8 @@ body{
   max-width:700px;
   margin:20px auto;
   padding:16px;
-  background:white;
-  border-radius:12px;
+  background:#fff;
+  border-radius:14px;
   box-shadow:0 6px 18px rgba(0,0,0,.08);
 }
 
@@ -20,25 +20,46 @@ h1{margin:0 0 12px}
   gap:10px;
 }
 
+/* rounded input */
 input{
   flex:1;
-  padding:10px;
+  padding:11px 12px;
   font-size:16px;
+  border:1px solid #d1d5db;
+  border-radius:14px;          /* <-- скругление */
+  outline:none;
+}
+input:focus{
+  border-color:#3b82f6;
+  box-shadow:0 0 0 3px rgba(59,130,246,.18);
 }
 
+/* rounded button */
 button{
-  padding:10px 14px;
+  padding:11px 14px;
   font-size:16px;
   cursor:pointer;
+  border:none;
+  border-radius:14px;          /* <-- скругление */
+  background:#3b82f6;
+  color:#fff;
 }
+button:hover{background:#2563eb}
 
+/* output: stays inside, wraps text */
 pre{
   margin-top:12px;
   padding:12px;
   background:#111827;
   color:#e5e7eb;
-  border-radius:10px;
-  overflow:auto;
+  border-radius:14px;
+
+  /* главное: чтобы текст НЕ выходил за пределы */
+  white-space:pre-wrap;        /* перенос строк */
+  overflow-wrap:anywhere;      /* перенос длинных слов/ссылок */
+  word-break:break-word;       /* запасной вариант */
+  overflow:auto;               /* если всё равно слишком много — скролл */
+  max-width:100%;
 }
 
 /* phone */
