@@ -1,0 +1,48 @@
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f6fb;
+}
+
+.box{
+  max-width:700px;
+  margin:20px auto;
+  padding:16px;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+
+h1{margin:0 0 12px}
+
+.controls{
+  display:flex;
+  gap:10px;
+}
+
+input{
+  flex:1;
+  padding:10px;
+  font-size:16px;
+}
+
+button{
+  padding:10px 14px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+pre{
+  margin-top:12px;
+  padding:12px;
+  background:#111827;
+  color:#e5e7eb;
+  border-radius:10px;
+  overflow:auto;
+}
+
+/* phone */
+@media (max-width:600px){
+  .controls{flex-direction:column;}
+  button{width:100%;}
+}
